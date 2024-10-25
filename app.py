@@ -5,6 +5,9 @@ from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
+# Path to the cookies.txt file
+COOKIES_FILE = 'cookies.txt'  # Replace with the actual path
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -13,7 +16,11 @@ def index():
 def count_videos():
     video_url = request.json.get('url')
 
-    ydl_opts = {'quiet': True, 'extract_flat': True}
+    ydl_opts = {
+        'quiet': True,
+        'extract_flat': True,
+        'cookies': COOKIES_FILE,  # Use cookies to authenticate
+    }
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -37,6 +44,7 @@ def download_videos():
 
     ydl_opts = {
         'outtmpl': os.path.join(video_folder, '%(title)s.%(ext)s'),
+        'cookies': COOKIES_FILE,  # Use cookies to authenticate
     }
 
     try:
