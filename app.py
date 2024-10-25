@@ -10,7 +10,7 @@ app = Flask(__name__)
 COOKIES_FILE = 'cookies.txt'  # Replace with the actual path
 
 # reCAPTCHA secret key (replace with your actual secret key)
-RECAPTCHA_SECRET_KEY = 'YOUR_SECRET_KEY'
+RECAPTCHA_SECRET_KEY = '3edqwfyutgkmjnhbgvrfedwsq'
 
 # Function to verify reCAPTCHA response
 def verify_recaptcha(response_token):
