@@ -157,7 +157,7 @@
                 const countData = await countResponse.json();
                 if (countData.success) {
                     const totalVideos = countData.totalVideos;
-                    document.getElementById('progress').innerText = `Total Videos: ${totalVideos}. Starting download, wait for completion...`;
+                    document.getElementById('progress').innerText = `Total Videos: ${totalVideos}. Start downloading, wait for completion...`;
                     
                     // Show loader
                     document.getElementById('loader').style.display = 'block';
