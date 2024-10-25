@@ -120,14 +120,12 @@
             }
         }
     </style>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="container">
         <i class="fas fa-video icon"></i>
         <h1>YouTube Video Downloader</h1>
         <input type="text" id="videoUrl" placeholder="Enter YouTube Video or Playlist URL" aria-label="YouTube Video URL" />
-        <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
         <button id="downloadBtn"><i class="fas fa-download"></i> Download</button>
         <div id="progress" class="progress"></div>
         <div class="loader" id="loader">
@@ -138,27 +136,22 @@
     <script>
         document.getElementById('downloadBtn').addEventListener('click', async () => {
             const videoUrl = document.getElementById('videoUrl').value.trim();
-            const recaptchaResponse = grecaptcha.getResponse();
             if (!videoUrl) {
                 alert('Please enter a valid URL.');
                 return;
             }
             
-            if (!recaptchaResponse) {
-                alert('Please complete the CAPTCHA.');
-                return;
-            }
-
             document.getElementById('progress').innerText = 'Counting total videos...';
             document.getElementById('loader').style.display = 'none'; // Hide loader initially
         
             try {
+                // Count the videos first
                 const countResponse = await fetch('/count', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ url: videoUrl, recaptcha: recaptchaResponse }),
+                    body: JSON.stringify({ url: videoUrl }),
                 });
         
                 const countData = await countResponse.json();
@@ -171,6 +164,7 @@
                     const progressBar = document.getElementById('progressBar');
                     progressBar.style.width = '0%'; // Reset progress bar
                     
+                    // Downloading all videos at once
                     const downloadResponse = await fetch('/download', {
                         method: 'POST',
                         headers: {
@@ -196,3 +190,6 @@
     </script>
 </body>
 </html>
+
+
+
