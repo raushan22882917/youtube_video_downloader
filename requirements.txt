@@ -1,5 +1,5 @@
 Flask
 Flask-Cors
-youtube-dl
+yt-dlp
 requests
 gunicorn
